@@ -1,9 +1,8 @@
 {
-    "token": "",
-    "raceChannelId": "566486385377280001",
-    "raceVoiceChannelId": "407763206564741120",
-    "pagerRoleId": "632571703398105098",
-    "refereeRoleId": "876383410212462602",
+    "raceChannelId": "",
+    "raceVoiceChannelId": "",
+    "pagerRoleId": "",
+    "refereeRoleId": "",
     "GuildId": "",
     "ClientId": "",
     "maxOffsetSeconds": "15",
@@ -13,16 +12,68 @@
     "defaultOffset": "10400",
     "rematchTimeoutSeconds": "8000",
     "generatePPF": true,
-    "randoPath": "D:/SotN-Randomizer-master/",
-    "patchFolder": "D:/speedrun-race-discord-bot-master/patches/",
-    "replaysFolder": "D:/speedrun-race-discord-bot-master/replays/",
+    "sotnVanillaBinPath": "",
+    "randoPath": "",
+    "patchFolder": "",
+    "replaysFolder": "",
+    "ppfApplierPath": "",
+    "bhGeneratorToolPath": "",
     "countdownFiles": [
         "../audio/countdown1.mp3",
         "../audio/countdown2.mp3",
         "../audio/countdown3.mp3",
         "../audio/countdown4.mp3"
     ],
+    "categories": [
+        {
+            "name": "Guarded OG",
+            "value": "Guarded-OG"
+        },
+        {
+            "name": "Safe",
+            "value": "Safe"
+        },
+        {
+            "name": "Casual",
+            "value": "Casual"
+        },
+        {
+            "name": "Nimble",
+            "value": "Nimble"
+        },
+        {
+            "name": "Lycanthrope",
+            "value": "Lycanthrope"
+        },
+        {
+            "name": "Expedition",
+            "value": "Expedition"
+        },
+        {
+            "name": "Warlock",
+            "value": "Warlock"
+        },
+        {
+            "name": "Adventure",
+            "value": "Adventure"
+        },
+        {
+            "name": "OG",
+            "value": "OG"
+        },
+        {
+            "name": "Speedrun",
+            "value": "Speedrun"
+        },
+        {
+            "name": "Bat master",
+            "value": "Bat-master"
+        },
+        {
+            "name": "Custom",
+            "value": "Custom"
+        }
+    ],
     "leaderboardmessages": [
-        
     ]
 }

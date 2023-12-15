@@ -679,6 +679,8 @@ module.exports = (preset) => {
             site += rando;
     }
 
+    console.log(site);
+
     let seedName = adjective + noun + number + suffix;
     let seedLink = 'https://' + site + seedName;
 

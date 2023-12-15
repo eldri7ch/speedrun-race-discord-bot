@@ -1,11 +1,14 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
-const zipReplays = require('../common/zipReplays');
+const generatePPF = require('../common/generatePPF.js');
+const seed = require('../common/seed.js');
+
+
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('start')
-        .setDescription(`Starts a new race with the selected options.`)
+        .setName('generate')
+        .setDescription(`Generate a seed with the selected options.`)
         .addStringOption(option =>
             option.setName('category')
                 .setDescription('Category of the race')
@@ -85,24 +88,18 @@ module.exports = {
                 .setDescription('Tournament races have more restrictions for non-referees.')
                 .setRequired(true))
         .addBooleanOption(option =>
-            option.setName('unranked')
-                .setDescription('Unranked races don\'t get tracked on the leaderboards.')
+            option.setName('public')
+                .setDescription('Determines whether resulting seed will be private or public.')
                 .setRequired(false))
         .addBooleanOption(option =>
             option.setName('vanilla-music')
                 .setDescription('Determines whether resulting seed will have randomized OST.')
                 .setRequired(false)),
     async execute(interaction, client, race) {
-        if ((race.started || !race.finished) && race.tournament && !interaction.member.roles.cache.find(x => x.id === config.refereeRoleId)) {
-            await interaction.reply({ content: 'Only referees can close tournament races!', ephemeral: true });
-            return;
-        }
-        if (!race.allReplaysSubmitted() && race.replays.lenght > 1) {
-            zipReplays(interaction.channel, race);
-        }
+        let catagory = interaction.options.getString('category');
+        let ppfSeed = seed(catagory);
         let raceChannel = client.guilds.cache.first(1)[0].channels;
-
-        race.initiate(interaction.options.getString('category'), interaction.options.getBoolean('unranked'), interaction.options.getBoolean('tournament'), interaction, raceChannel);
-        await interaction.deferReply({ ephemeral: true });
+        generatePPF(ppfSeed, ppfSeed.name,raceChannel,catagory.toLowerCase(),interaction.options.getBoolean('tournament'), interaction,!interaction.options.getBoolean('vanilla-music'),false);
+        await interaction.deferReply({ ephemeral: !interaction.options.getBoolean('public') });
     },
 };
