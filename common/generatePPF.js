@@ -3,6 +3,21 @@ const cp = require('child_process');
 const fs = require('fs');
 const simpleGit = require('simple-git');
 
+const SOTN_IO_SUPPORTED_PRESETS = 
+[
+    "guarded-og",
+    "safe",
+    "casual",
+    "nimble",
+    "lycanthrope",
+    "expedition",
+    "warlock",
+    "adventure",
+    "og",
+    "speedrun",
+    "bat-master",
+];
+
 function sendReply(patchFilePath,patchFileName,output, channel, interaction,isRace) {
     if (fs.existsSync(patchFilePath)) {
         console.log("here");
@@ -31,32 +46,46 @@ function sendReply(patchFilePath,patchFileName,output, channel, interaction,isRa
     }
 }
 
+function sendErrorReply(interaction) {
+    interaction.editReply({ 
+        content: "TinMan Encountered an error, please try again!",
+    });
+}
+
+
 module.exports = async (seed, seedName, channel, catagory, tournament,interaction, randoMusic, isRace) => {
+    try {
+
     console.log(seedName);
     let patchFileName = seedName + ".ppf";
     let randoPath = config.randoPath;
-
     console.log("generating seed...");
-
     let logs = '';
     let newlogs = '';
     let args = ["-o", config.patchFolder + patchFileName, "-p", catagory, "-s", seedName, "--race"];
     if (!randoMusic && catagory !== "boss-rush"){
         args.push("--opt","~m")
     }
-    if (tournament && catagory !== "boss-rush"){
+    if (!interaction.options.getBoolean('unranked') || (tournament && catagory !== "boss-rush")){
         args.push("-t")
     }
     console.log(randoPath + "randomize", args);
-    let randomizer = cp.fork(randoPath + "randomize", args, { cwd: randoPath, stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
-
+    let randomizer;
+    if(SOTN_IO_SUPPORTED_PRESETS.includes(catagory)){
+        console.log(config.patchFolder + patchFileName);
+        console.log(seed);
+        randomizer = cp.fork(randoPath + "randomize", ["-o", config.patchFolder + patchFileName, seed.link], { cwd: randoPath, stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
+    }
+    else{
+        randomizer = cp.fork(randoPath + "randomize", args, { cwd: randoPath, stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
+    }
     randomizer.stdout.on('data', (outdata) => {
         logs += outdata;
     });
     randomizer.stderr.on('data' ,  (outdata) => {
         console.log(outdata);
     });
-    randomizer.on('exit', () => {
+    randomizer.on('exit', async () => {
         console.log('logged: ' + logs);
         let output = `Successfully generated seed ${seedName} of preset ${catagory}!\n`;
         logs = logs.replace(/(?:\r\n|\r|\n)/g, ',').replace(/\s\s+/g, ' ');
@@ -77,7 +106,13 @@ module.exports = async (seed, seedName, channel, catagory, tournament,interactio
             });
         }
         else {
+            throw new Error("derp");
             sendReply(config.patchFolder + patchFileName,patchFileName,output,channel.fetch(config.raceChannelId),interaction, isRace)
         }
     });
+}catch{
+    await sendErrorReply(interaction);
+    throw new Error("Derp");
+}
+
 };
