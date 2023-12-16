@@ -38,6 +38,22 @@ function getPlayerIndexById(id) {
 }
 
 module.exports = {
+    getPlayerIndexById(id) {
+        if (players.length < 1) {
+            players = playersDb;
+        }
+        if (id < 1) {
+            console.log("Invalid id");
+            return null;
+        }
+        let player = players.find(x => x.id == id);
+        if (player) {
+            return players.findIndex(x => x.id == id);
+        } else {
+            savePlayer({ id: id });
+        }
+        return players.findIndex(x => x.id == id);
+    },
     checkPlayerRanked: function(id, category) {
         let playerIndex = getPlayerIndexById(id);
         if (!players[playerIndex][category]) {
