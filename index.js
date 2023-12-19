@@ -9,16 +9,16 @@ client.commands = new Collection();
 client.buttons = new Collection();
 const readline = require('readline');
 
-var race = null;
+var races = {};
 var audioPlayer = null;
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
     if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args, client, race));
+        client.once(event.name, (...args) => event.execute(...args, client, races));
     } else {
-        client.on(event.name, (...args) => event.execute(...args, client, race));
+        client.on(event.name, (...args) => event.execute(...args, client, races));
     }
 }
 

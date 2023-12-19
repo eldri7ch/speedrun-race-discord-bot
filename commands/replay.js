@@ -10,12 +10,20 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('replay')
         .setDescription(`Submit a replay.`)
+        .addStringOption(option =>
+            option.setName('raceid')
+                .setDescription('The RaceID to submit the race to.')
+                .setRequired(true)
+        )
         .addAttachmentOption(option => 
             option.setName('replay')
             .setDescription('Your replay for this race.')
             .setRequired(true)
         ),
-    async execute(interaction, client, race) {
+    async execute(interaction, client, races) {
+        let raceID = interaction.options.getString('raceid');
+        let race = races[raceID];
+
         if (!race.includes(interaction.user.id)) {
             await interaction.reply({ content: `Can't submit replays if you are not in the race!`, ephemeral: true });
             return;
@@ -59,7 +67,7 @@ module.exports = {
             race.setSeedName(seedName);
         }
 
-        if (fs.existsSync(config.replaysFolder + "/" + race.seedName + "/" + replay.name)) {
+        if (fs.existsSync(config.replaysFolder + "/" + raceID + "/" + replay.name)) {
             await interaction.reply({ content: `Invalid. File already submitted!`, ephemeral: true });
             return;
         }
@@ -67,7 +75,7 @@ module.exports = {
         await downloadReplay(replay.url, replay.name, race, interaction.user);
 
         if (race.allReplaysSubmitted()) {
-            zipReplays(interaction.channel, race);
+            zipReplays(interaction.channel, race, race.ID);
         }
         
         race.update();

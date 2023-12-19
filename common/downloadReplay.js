@@ -3,10 +3,9 @@ const https = require('https');
 const fs = require('fs');
 
 module.exports = async (url, name, race, user) => {
-    let path = config.replaysFolder + "/" + race.seedName + "/" + name;
+    let path = config.replaysFolder + "/" + race.ID + "/" + name;
     const file = fs.createWriteStream(path);
-    const dir = race.seedName;
-
+    const dir = race.ID;
     if (!fs.existsSync(config.replaysFolder + "/"  + dir)) {
         fs.mkdirSync(config.replaysFolder + "/"  + dir);
     }

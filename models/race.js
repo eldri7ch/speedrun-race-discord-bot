@@ -11,7 +11,7 @@ const Player = require('./player.js');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
 module.exports = class Race {
-    constructor(client, audioPlayer) {
+    constructor(client, audioPlayer, ID) {
         this.client = client;
         this.channel = client.guilds.cache.first(1)[0].channels.fetch(config.raceChannelId);
         this.audioPlayer = audioPlayer;
@@ -31,6 +31,7 @@ module.exports = class Race {
         this.ranked = true;
         this.message = null;
         this.replays = [];
+        this.ID = ID;
     }
 
     includes(id) {
@@ -220,14 +221,13 @@ module.exports = class Race {
         this.addPlayer(user.username, user.id);
         this.generateMultistream()
         this.initiatedAt = new Date().getTime();
-
         let buttonComponents = [
             new ButtonBuilder()
-                .setCustomId('join')
+                .setCustomId(`join:${this.ID}`)
                 .setLabel('Join')
                 .setStyle(ButtonStyle.Primary),
             new ButtonBuilder()
-                .setCustomId('ready')
+                .setCustomId(`ready:${this.ID}`)
                 .setLabel('Ready')
                 .setStyle(ButtonStyle.Success)
         ];
@@ -254,7 +254,7 @@ module.exports = class Race {
         const raceEmbed = new EmbedBuilder()
             .setColor(0x1f0733)
             .setTitle(((this.ranked ? 'RANKED \n' : '') + this.status))
-            .setFooter({ text: 'Category: ' + this.category });
+            .setFooter({ text: 'Category: ' + this.category + "\n" + 'RaceID: ' + this.ID });
 
         this.channel.then(channel => {
             channel.send({ embeds: [raceEmbed], components: [buttons] }).then(msg => {
@@ -297,11 +297,11 @@ module.exports = class Race {
 
         let buttonComponents = [
             new ButtonBuilder()
-                .setCustomId('finish')
+                .setCustomId(`finish:${this.ID}`)
                 .setLabel('Finish')
                 .setStyle(ButtonStyle.Success),
             new ButtonBuilder()
-                .setCustomId('forfeit')
+                .setCustomId(`forfeit:${this.ID}`)
                 .setLabel('Forfeit')
                 .setStyle(ButtonStyle.Danger),
         ];
@@ -350,7 +350,7 @@ module.exports = class Race {
 
         if (this.allReplaysSubmitted()) {
             this.channel.then(channel => {
-                zipReplays(channel, this);
+                zipReplays(channel, this, this.ID);
             }).catch(console.error);
         }
 
@@ -396,11 +396,11 @@ module.exports = class Race {
 
         let buttonComponents = [
             new ButtonBuilder()
-                .setCustomId('join')
+                .setCustomId(`join:${this.ID}`)
                 .setLabel('Join')
                 .setStyle(ButtonStyle.Primary),
             new ButtonBuilder()
-                .setCustomId('ready')
+                .setCustomId(`ready:${this.ID}`)
                 .setLabel('Ready')
                 .setStyle(ButtonStyle.Success)
         ];
@@ -464,7 +464,7 @@ module.exports = class Race {
             .setColor(0x1f0733)
             .setTitle(((this.ranked ? 'RANKED ' : '') + this.status))
             .setDescription(output)
-            .setFooter({ text: 'Category: ' + this.category });
+            .setFooter({ text: 'Category: ' + this.category + "\n" + 'RaceID: ' + this.ID });
 
         this.message.edit({ embeds: [raceEmbed] });
     }
