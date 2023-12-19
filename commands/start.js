@@ -1,6 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require('../config.json');
 const zipReplays = require('../common/zipReplays');
+const crypto = require('crypto');
+const Race = require('../models/race');
+const AudioPlayer = require('../models/audioPlayer');
+const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -92,17 +96,15 @@ module.exports = {
             option.setName('vanilla-music')
                 .setDescription('Determines whether resulting seed will have randomized OST.')
                 .setRequired(false)),
-    async execute(interaction, client, race) {
-        if ((race.started || !race.finished) && race.tournament && !interaction.member.roles.cache.find(x => x.id === config.refereeRoleId)) {
-            await interaction.reply({ content: 'Only referees can close tournament races!', ephemeral: true });
-            return;
-        }
-        if (!race.allReplaysSubmitted() && race.replays.lenght > 1) {
-            zipReplays(interaction.channel, race);
+    async execute(interaction, client, races) {
+        races[interaction.id] = new Race(client,new AudioPlayer(client), interaction.id);
+
+        if (!races[interaction.id].allReplaysSubmitted() && races[interaction.id].replays.lenght > 1) {
+            zipReplays(interaction.channel, races[interaction.id], interaction.id);
         }
         let raceChannel = client.guilds.cache.first(1)[0].channels;
 
-        race.initiate(interaction.options.getString('category'), interaction.options.getBoolean('unranked'), interaction.options.getBoolean('tournament'), interaction, raceChannel);
+        races[interaction.id].initiate(interaction.options.getString('category'), interaction.options.getBoolean('unranked'), interaction.options.getBoolean('tournament'), interaction, raceChannel);
         await interaction.deferReply({ ephemeral: true });
     },
 };

@@ -21,6 +21,7 @@ const SOTN_IO_SUPPORTED_PRESETS =
 function sendReply(patchFilePath,patchFileName,output, channel, interaction,isRace) {
     if (fs.existsSync(patchFilePath)) {
         console.log("here");
+        
         let files = []
         if(!isRace){
             files = [{
@@ -94,6 +95,21 @@ module.exports = async (seed, seedName, channel, catagory, tournament,interactio
     });
     randomizer.on('exit', async () => {
         console.log('logged: ' + logs);
+        if(isRace){
+            fs.mkdirSync(config.replaysFolder + "/"  + interaction.id);
+            let raceInfo = {
+                seedName: seedName,
+            }
+            console.log(JSON.stringify(raceInfo));
+            fs.writeFile(config.replaysFolder + "/"  + interaction.id + "/raceInfo.json", JSON.stringify(raceInfo,null,2),err => {
+                if (err) {
+                    console.log('Error writing file', err)
+                } else {
+                    console.log('Successfully wrote file')
+                }
+            });    
+
+        }
         let output = `Successfully generated seed ${seedName} of preset ${catagory}!\n`;
         logs = logs.replace(/(?:\r\n|\r|\n)/g, ',').replace(/\s\s+/g, ' ');
         let items = logs.split('Starting equipment:, ')[1];

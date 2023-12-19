@@ -2,19 +2,23 @@ const config = require('../config.json');
 const fs = require('fs');
 const JSZip = require('jszip');
 
-module.exports = async (channel, race) => {
-    let zipFileName = race.seedName + ".zip";
-    let replayFiles = race.getReplays();
+module.exports = async (channel, race,raceID) => {
+    let raceInfo = JSON.parse(fs.readFileSync(config.replaysFolder + "/" + raceID + "/raceInfo.json","utf8"));
+    let zipFileName = raceInfo?.seedName + ".zip";
 
-    var zip = new JSZip();
+    // let replayFiles = race.getReplays();
 
-    for (const replay of replayFiles) {
-        let path = config.replaysFolder + "/" + race.seedName + "/" + replay;
-        let data = fs.readFileSync(path);
-        zip.file(replay, data);
-    }
+    fs.readdir(config.replaysFolder + "/" + raceID, function (err, files) {
+        var zip = new JSZip();
 
-    zip
+        console.log("FILES HERE")
+        files.forEach(function (file, index) {
+            console.log(file);
+            let path = config.replaysFolder + "/" + raceID + "/" + file;
+            let data = fs.readFileSync(path);
+            zip.file(file, data);
+        });
+        zip
         .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
         .pipe(fs.createWriteStream(config.replaysFolder + zipFileName))
         .on('finish', function () {
@@ -26,4 +30,5 @@ module.exports = async (channel, race) => {
                 }]
             }).catch(console.error);
         });
+    });
 };

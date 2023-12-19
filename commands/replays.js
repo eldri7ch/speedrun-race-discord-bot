@@ -4,17 +4,25 @@ const zipReplays = require('../common/zipReplays');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('replays')
-        .setDescription(`Generate a zip of all the submitted replays for this race.`),
+        .setDescription(`Generate a zip of all the submitted replays for this race.`)
+        .addStringOption(option =>
+            option.setName('raceid')
+                .setDescription('The RaceID to submit the race to.')
+                .setRequired(true)
+        ),
     async execute(interaction, client, race) {
-        if (!race.finished || race.seedName == "") {
-            await interaction.reply({ content: `Race has to be finished!`, ephemeral: true });
-            return;
+
+        await interaction.deferReply({ ephemeral: true });
+        try{
+            zipReplays(interaction.channel, race, interaction.options.getString('raceid'));
+        } catch {
+            interaction.editReply({
+                content: `TinMan Couldn't locate replay files for race with id: ${interaction.options.getString('raceid')}`,
+            });
+            return
         }
-        if (race.replays.lenght < 2) {
-            await interaction.reply({ content: `At least 2 replays need to be submitted.`, ephemeral: true });
-            return;
-        }
-        await interaction.reply({ content: 'Zip generated!', ephemeral: true });
-        zipReplays(interaction.channel, race);
+        interaction.editReply({
+            content: `Zip generated for race with id: ${interaction.options.getString('raceid')}`,
+        });
     },
 };
