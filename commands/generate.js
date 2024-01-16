@@ -110,7 +110,7 @@ module.exports = {
         let catagory = interaction.options.getString('category');
         let ppfSeed = seed(catagory);
         let raceChannel = client.guilds.cache.first(1)[0].channels;
-        console.log('Seed Generated For: ' + data.getPlayerUsername(interaction.user.id))
+        console.log('Seed Generated For: ' + interaction.user.username)
         generatePPF(ppfSeed, ppfSeed.name,raceChannel,catagory.toLowerCase(),interaction.options.getBoolean('tournament'), interaction,!interaction.options.getBoolean('vanilla-music'),false);
         await interaction.deferReply({ ephemeral: !interaction.options.getBoolean('public') });
     },
