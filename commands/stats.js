@@ -62,43 +62,49 @@ module.exports = {
         .addBooleanOption(option =>
             option.setName('public')
                 .setDescription('Select true if you want the reply to be visible to everybody.')
+                .setRequired(false))
+        .addStringOption(option =>
+            option.setName('top')
+                .setDescription('Select how many users to display. If you want all, type "all".')
                 .setRequired(false)),
     async execute(interaction) {
         const centerPad = (str, length, char = ' ') => str.padStart((str.length + length) / 2, char).padEnd(length, char);
         let category = interaction.options.getString('category');
         let player = interaction.options.getUser('user');
         let isPlayer = false;
+        let oTop = interaction.options.getString('top');
+        let hidePost = false
 
         let stats = null;
 
         if (category) {
             stats = data.getCategoryStats(category);
         } else if (player) {
-            stats = data.getPlayerStats(player.username);
+            stats = data.getPlayerStats(player.id);
             isPlayer = true;
         } else {
-            stats = data.getPlayerStats(interaction.user.username);
+            stats = data.getPlayerStats(interaction.user.id);
             isPlayer = true;
         }
 
         let output = '';
         if (stats && isPlayer) {
             output += category + ' stats';
-            output += '\n Stream: <' + stats.twitch + '>';
-            stats.categories.forEach(element => {
-                output += '\n' + ('`Category: ' + element.name).padEnd(35, " ") + '`';
-                output += '\n' + ('`  Rank: ' + element.rank).padEnd(35, " ") + '`';
-                output += '\n' + ('`  Elo: ' + element.elo).padEnd(35, " ") + '`';
-                output += '\n' + ('`  Matches: ' + element.matches).padEnd(35, " ") + '`';
+            output += '\n Stream: <' + player.twitch + '>';
+            stats.categories.forEach(category => {
+                output += '\n' + ('`Category: ' + category.name).padEnd(35, " ") + '`';
+                output += '\n' + ('`  Rank: ' + category.rank).padEnd(35, " ") + '`';
+                output += '\n' + ('`  Elo: ' + category.elo).padEnd(35, " ") + '`';
+                output += '\n' + ('`  Matches: ' + category.matches).padEnd(35, " ") + '`';
             });
         } else if (stats) {
             output += 'Stats:';
             output += '\n`' + centerPad((category), 24) + '`';
             output += '\n`' + (' Players: ' + stats.categoryPlayers).padEnd(24, " ") + '`';
-            output += '\n`' + centerPad(('Top 4'), 24) + '`';
+            output += '\n`' + centerPad(('Top ' + oTop), 24) + '`';
             for (let i = 0; i < stats.top.length; i++) {
                 output += '\n`' + ((i + 1) + '.' + stats.top[i].username).padEnd(19, " ") + (stats.top[i].elo + ' ').padEnd(5, " ") + '`';
-                if (i == 4) {
+                if (i == oTop) {
                     break;
                 }
             }
@@ -106,6 +112,16 @@ module.exports = {
             output += 'No stats available yet.';
         }
 
-        await interaction.reply({ content: output, ephemeral: !interaction.options.getBoolean('public') });
+        if (oTop < 6) {
+                hidePost = !interaction.options.getBoolean('public')
+            } else if (oTop = 'all') {
+                hidePost = true
+            } else {
+                hidePost = true 
+            }
+
+        output = output.substring(0,1999) + '`'
+
+        await interaction.reply({ content: output, ephemeral: hidePost });
     },
 };
