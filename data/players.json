@@ -114,8 +114,8 @@
       "matches": 2
     },
     "lycanthrope": {
-      "elo": 1220,
-      "matches": 7
+      "elo": 1175,
+      "matches": 8
     },
     "warlock": {
       "elo": 1095,
@@ -126,8 +126,8 @@
       "matches": 2
     },
     "bat-master": {
-      "elo": 1110,
-      "matches": 1
+      "elo": 1140,
+      "matches": 2
     },
     "speedrun": {
       "elo": 1000,
@@ -233,8 +233,8 @@
       "matches": 5
     },
     "lycanthrope": {
-      "elo": 1110,
-      "matches": 6
+      "elo": 1145,
+      "matches": 7
     },
     "safe": {
       "elo": 730,
@@ -245,8 +245,8 @@
       "matches": 2
     },
     "nimble": {
-      "elo": 915,
-      "matches": 3
+      "elo": 945,
+      "matches": 4
     },
     "casual": {
       "elo": 910,
@@ -286,8 +286,8 @@
       "matches": 1
     },
     "safe": {
-      "elo": 750,
-      "matches": 1
+      "elo": 875,
+      "matches": 2
     }
   },
   {
@@ -410,8 +410,8 @@
       "matches": 19
     },
     "safe": {
-      "elo": 1625,
-      "matches": 18
+      "elo": 1655,
+      "matches": 19
     },
     "nimble": {
       "elo": 1185,
@@ -647,6 +647,10 @@
     "lycanthrope": {
       "elo": 770,
       "matches": 1
+    },
+    "casual": {
+      "elo": 1050,
+      "matches": 1
     }
   },
   {
@@ -878,6 +882,10 @@
     "nimble": {
       "elo": 1000,
       "matches": 1
+    },
+    "casual": {
+      "elo": 950,
+      "matches": 1
     }
   },
   {
@@ -1011,6 +1019,10 @@
     "Lycanthrope": {
       "elo": 995,
       "matches": 4
+    },
+    "aperture": {
+      "elo": 1045,
+      "matches": 1
     }
   },
   {
@@ -1057,8 +1069,8 @@
       "matches": 1
     },
     "aperture": {
-      "elo": 915,
-      "matches": 1
+      "elo": 870,
+      "matches": 2
     },
     "casual": {
       "elo": 1095,
@@ -1251,16 +1263,16 @@
       "matches": 1
     },
     "safe": {
-      "elo": 1135,
-      "matches": 9
+      "elo": 1075,
+      "matches": 10
     },
     "nimble": {
-      "elo": 990,
-      "matches": 5
+      "elo": 960,
+      "matches": 6
     },
     "lycanthrope": {
-      "elo": 915,
-      "matches": 4
+      "elo": 1030,
+      "matches": 5
     },
     "aperture": {
       "elo": 1025,
@@ -1384,8 +1396,8 @@
       "matches": 2
     },
     "lycanthrope": {
-      "elo": 1220,
-      "matches": 15
+      "elo": 1115,
+      "matches": 16
     },
     "warlock": {
       "elo": 785,
@@ -1396,8 +1408,8 @@
       "matches": 9
     },
     "bat-master": {
-      "elo": 800,
-      "matches": 1
+      "elo": 770,
+      "matches": 2
     },
     "bountyhunter": {
       "elo": 1005,
@@ -1597,8 +1609,8 @@
   {
     "id": "458685508755783694",
     "safe": {
-      "elo": 1045,
-      "matches": 1
+      "elo": 965,
+      "matches": 2
     },
     "username": "majorseamen",
     "lycanthrope": {
@@ -1654,5 +1666,8 @@
   },
   {
     "id": "447028019610124309"
+  },
+  {
+    "id": "365012650632937472"
   }
 ]

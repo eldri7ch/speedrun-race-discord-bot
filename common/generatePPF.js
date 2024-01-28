@@ -98,7 +98,8 @@ module.exports = async (seed, seedName, channel, catagory, tournament,interactio
         logs = logs.replace(/(?:\r\n|\r|\n)/g, ',').replace(/\s\s+/g, ' ');
         let items = logs.split('Starting equipment:, ')[1];
         if(catagory === "boss-rush" || catagory === "bountyhunter"){
-            items = items.split('Relic locations:, ')[0];
+            items = items?.split('Relic locations:, ') ?? "";
+            if(items?.length>0){items=items[0]}
         }
         output+= 'https://ppf.sotn.io/'
         output += '\n Starting equipment: ||' + items + '||';

@@ -88,6 +88,14 @@ module.exports = {
                         value: 'big-toss',
                     },
                     {
+                        name: 'grand-tour',
+                        value: 'grand-tour',
+                    },
+                    {
+                        name: 'crash-course',
+                        value: 'crash-course',
+                    },
+                    {
                         name: 'Custom',
                         value: 'Custom',
                     },

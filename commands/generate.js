@@ -90,8 +90,12 @@ module.exports = {
                         value: 'big-toss',
                     },
                     {
-                        name: 'Custom',
-                        value: 'Custom',
+                        name: 'grand-tour',
+                        value: 'grand-tour',
+                    },
+                    {
+                        name: 'crash-course',
+                        value: 'crash-course',
                     },
                 ))
         .addBooleanOption(option =>
