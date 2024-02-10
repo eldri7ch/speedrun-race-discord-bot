@@ -94,8 +94,8 @@
       "matches": 3
     },
     "Custom": {
-      "elo": 1315,
-      "matches": 3
+      "elo": 1340,
+      "matches": 4
     },
     "Nimble": {
       "elo": 1130,
@@ -135,6 +135,10 @@
     },
     "scavenger": {
       "elo": 1150,
+      "matches": 1
+    },
+    "bountyhunter": {
+      "elo": 1060,
       "matches": 1
     }
   },
@@ -205,8 +209,8 @@
       "matches": 11
     },
     "Custom": {
-      "elo": 930,
-      "matches": 9
+      "elo": 875,
+      "matches": 10
     },
     "Bat-master": {
       "elo": 1140,
@@ -245,8 +249,8 @@
       "matches": 2
     },
     "nimble": {
-      "elo": 945,
-      "matches": 4
+      "elo": 855,
+      "matches": 5
     },
     "casual": {
       "elo": 910,
@@ -264,7 +268,11 @@
       "elo": 910,
       "matches": 1
     },
-    "twitch": "eldri7ch"
+    "twitch": "eldri7ch",
+    "big-toss": {
+      "elo": 950,
+      "matches": 1
+    }
   },
   {
     "username": "ggchucksy",
@@ -282,8 +290,8 @@
       "matches": 2
     },
     "nimble": {
-      "elo": 695,
-      "matches": 1
+      "elo": 665,
+      "matches": 2
     },
     "safe": {
       "elo": 875,
@@ -438,8 +446,8 @@
       "matches": 1
     },
     "bountyhunter": {
-      "elo": 1065,
-      "matches": 3
+      "elo": 1030,
+      "matches": 4
     }
   },
   {
@@ -699,8 +707,8 @@
       "matches": 1
     },
     "nimble": {
-      "elo": 965,
-      "matches": 1
+      "elo": 1005,
+      "matches": 2
     },
     "lycanthrope": {
       "elo": 805,
@@ -1079,6 +1087,10 @@
     "bountyhunter": {
       "elo": 945,
       "matches": 1
+    },
+    "nimble": {
+      "elo": 940,
+      "matches": 1
     }
   },
   {
@@ -1234,8 +1246,8 @@
     },
     "id": "622787063435231281",
     "Custom": {
-      "elo": 1040,
-      "matches": 4
+      "elo": 960,
+      "matches": 6
     },
     "Lycanthrope": {
       "elo": 1065,
@@ -1267,16 +1279,16 @@
       "matches": 10
     },
     "nimble": {
-      "elo": 960,
-      "matches": 6
+      "elo": 1065,
+      "matches": 8
     },
     "lycanthrope": {
       "elo": 1030,
       "matches": 5
     },
     "aperture": {
-      "elo": 1025,
-      "matches": 3
+      "elo": 1055,
+      "matches": 4
     },
     "bat-master": {
       "elo": 650,
@@ -1284,6 +1296,10 @@
     },
     "casual": {
       "elo": 900,
+      "matches": 1
+    },
+    "bountyhunter": {
+      "elo": 955,
       "matches": 1
     }
   },
@@ -1376,16 +1392,16 @@
       "matches": 10
     },
     "Custom": {
-      "elo": 625,
-      "matches": 6
+      "elo": 745,
+      "matches": 10
     },
     "Bat-master": {
       "elo": 965,
       "matches": 1
     },
     "nimble": {
-      "elo": 875,
-      "matches": 19
+      "elo": 915,
+      "matches": 20
     },
     "safe": {
       "elo": 680,
@@ -1412,8 +1428,8 @@
       "matches": 2
     },
     "bountyhunter": {
-      "elo": 1005,
-      "matches": 4
+      "elo": 900,
+      "matches": 6
     },
     "casual": {
       "elo": 775,
@@ -1421,6 +1437,10 @@
     },
     "scavenger": {
       "elo": 950,
+      "matches": 1
+    },
+    "big-toss": {
+      "elo": 1050,
       "matches": 1
     }
   },
@@ -1565,8 +1585,8 @@
   {
     "id": "124298268187426816",
     "nimble": {
-      "elo": 810,
-      "matches": 11
+      "elo": 785,
+      "matches": 12
     },
     "username": "derdrach",
     "warlock": {
@@ -1586,16 +1606,16 @@
       "matches": 1
     },
     "Custom": {
-      "elo": 795,
-      "matches": 2
+      "elo": 700,
+      "matches": 3
     },
     "casual": {
       "elo": 1005,
       "matches": 2
     },
     "bountyhunter": {
-      "elo": 1045,
-      "matches": 1
+      "elo": 1260,
+      "matches": 3
     },
     "scavenger": {
       "elo": 850,
@@ -1621,7 +1641,11 @@
       "elo": 1010,
       "matches": 1
     },
-    "twitch": "majorsemen"
+    "twitch": "majorsemen",
+    "aperture": {
+      "elo": 950,
+      "matches": 1
+    }
   },
   {
     "id": "154224473933873152",
@@ -1668,6 +1692,14 @@
     "id": "447028019610124309"
   },
   {
-    "id": "365012650632937472"
+    "id": "365012650632937472",
+    "Custom": {
+      "elo": 1075,
+      "matches": 1
+    },
+    "username": "mottzilla0"
+  },
+  {
+    "id": "889541891056623736"
   }
 ]

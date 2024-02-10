@@ -97,6 +97,10 @@ module.exports = {
                         name: 'crash-course',
                         value: 'crash-course',
                     },
+                    {
+                        name: 'leg-day',
+                        value: 'leg-day',
+                    },
                 ))
         .addBooleanOption(option =>
             option.setName('tournament')

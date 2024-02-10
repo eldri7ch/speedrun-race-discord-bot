@@ -96,6 +96,10 @@ module.exports = {
                         value: 'crash-course',
                     },
                     {
+                        name: 'leg-day',
+                        value: 'leg-day',
+                    },
+                    {
                         name: 'Custom',
                         value: 'Custom',
                     },
